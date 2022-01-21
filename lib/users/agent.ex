@@ -11,7 +11,7 @@ defmodule Exlivery.Users.Agent do
 
   def get(cpf), do: Agent.get(__MODULE__, fn x -> get_user(x, cpf) end)
 
-  defp update_state(state, %User{cpf: cpf} = user), do: Map.put(state, cpf, cpf: user)
+  defp update_state(state, %User{cpf: cpf} = user), do: Map.put(state, cpf, user)
 
   defp get_user(state, cpf) do
     case Map.get(state, cpf) do
