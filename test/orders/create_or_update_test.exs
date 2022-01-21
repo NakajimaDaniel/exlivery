@@ -42,5 +42,43 @@ defmodule Exlivery.Orders.CreateOrUpdateTest do
 
       assert {:ok, _uuid} = response
     end
+
+    test "when there is no user with given cpf, returns a error", %{item1: item1, item2: item2} do
+      params = %{user_cpf: "22222222222", items: [item1, item2]}
+
+      response = CreateOrUpdate.call(params)
+
+      expected_response = {:error, "user not found"}
+
+      assert expected_response == response
+    end
+
+    test "when there are invalid items, returns an error", %{
+      user_cpf: cpf,
+      item1: item1,
+      item2: item2
+    } do
+      params = %{user_cpf: cpf, items: [%{item1 | quantity: 0}, item2]}
+
+      response = CreateOrUpdate.call(params)
+
+      expected_response = {:error, "Invalid Items"}
+
+      assert expected_response == response
+    end
+
+    test "when there are no items, returns an error", %{
+      user_cpf: cpf,
+    } do
+      params = %{user_cpf: cpf, items: []}
+
+      response = CreateOrUpdate.call(params)
+
+      expected_response =  {:error, "Invalid Parameters"}
+
+      assert expected_response == response
+    end
+
+
   end
 end
