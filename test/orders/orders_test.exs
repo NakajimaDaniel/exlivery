@@ -28,7 +28,7 @@ defmodule Exlivery.Orders.OrderTest do
 
       response = Order.build(user, items)
 
-      expected_response = {:error, "Invalid Parameter"}
+      expected_response =  {:error, "Invalid Parameters"}
 
       assert response == expected_response
     end
