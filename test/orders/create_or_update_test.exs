@@ -40,7 +40,7 @@ defmodule Exlivery.Orders.CreateOrUpdateTest do
 
       response = CreateOrUpdate.call(params)
 
-      assert response == "rerrrer"
+      assert {:ok, _uuid} = response
     end
   end
 end
